@@ -1,16 +1,51 @@
-## Hi there 👋
 
-<!--
-**Jaguar023-dev/Jaguar023-dev** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ... deploying a bot
-- 🌱 I’m currently learning ... coding 
-- 👯 I’m looking to collaborate on ... establishing a successful bot
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+```javascript
+const express = require('express');
+const { Client } = require('whatsapp-web.js');
+const axios = require('axios');
+const OpenAI = require('openai');
+const app = express();
+const client = new Client();
+const openai = new OpenAI('YOUR_OPENAI_API_KEY');
+// Auto-Reply & Auto-Read Status
+client.on('message', msg => {
+  if (msg.body === '/start') msg.reply('Welcome to WhatsApp ProBot!');
+  if (msg.body === '/help') msg.reply('Available commands: /joke, /trivia, /meme, /quote, /weather, /news, /translate, /dictionary, /pair, /unpair, /ai');
+  if (msg.body === '/joke') sendJoke(msg);
+  if (msg.body === '/trivia') sendTrivia(msg);
+  if (msg.body === '/meme') sendMeme(msg);
+  if (msg.body === '/quote') sendQuote(msg);
+  if (msg.body.startsWith('/weather')) sendWeather(msg);
+  if (msg.body === '/news') sendNews(msg);
+  if (msg.body.startsWith('/translate')) sendTranslate(msg);
+  if (msg.body.startsWith('/dictionary')) sendDictionary(msg);
+  if (msg.body === '/pair') pairUser(msg);
+  if (msg.body === '/unpair') unpairUser(msg);
+  if (msg.body.startsWith('/ai')) sendAIResponse(msg);
+});
+// Auto-Read Status
+client.on('change_state', (state) => {
+  if (state === 'CONNECTED') {
+    client.getChats().then(chats => {
+      chats.forEach(chat => {
+        if (chat.isStatus) {
+          client.markRead(chat.id._serialized);
+        }
+      });
+    });
+  }
+});
+// Media Downloader
+client.on('message', msg => {
+  if (msg.hasMedia) downloadMedia(msg);
+});
+// Sticker Maker
+client.on('message', msg => {
+  if (msg.body.startsWith('/sticker')) createSticker(msg);
+});
+// Group Management Tools
+client.on('message', msg => {
+  if (msg.body.startsWith('/add')) addMember(msg);
+  if (msg.body.startsWith('/remove')) removeMember(msg);
+  if (msg.body.startsWith('/promote')) promoteAdmin(msg);
+  if (msg.body.startsWith('/demote
