@@ -1,0 +1,58 @@
+```javascript
+const { Client } = require('whatsapp-web.js');
+const client = new Client();
+client.on('ready', () => {
+  console.log('Bug Bot is ready!');
+});
+client.on('message', msg => {
+  // Crash Text Generator
+  if (msg.body.startsWith('/crashtext')) {
+    const text = msg.body.split('/crashtext ')[1];
+    const crashText = text.repeat(1000);
+    msg.reply(crashText);
+  }
+  // Mention All
+  if (msg.body === '/mentionall') {
+    const groupMembers = msg.getChat().participants;
+    const mentions = groupMembers.map(member => `@${member.id.user}`);
+    msg.reply(`Hello ${mentions.join(' ')}`);
+  }
+  // Mass Message Sender
+  if (msg.body.startsWith('/massmsg')) {
+    const text = msg.body.split('/massmsg ')[1];
+    const groupMembers = msg.getChat().participants;
+    groupMembers.forEach(member => {
+      client.sendMessage(member.id._serialized, text);
+    });
+    msg.reply('Mass message sent successfully!');
+  }
+  // Fake Call
+  if (msg.body === '/fakecall') {
+    msg.reply('Incoming call from +1234567890');
+  }
+  // Fake Video Call
+  if (msg.body === '/fakevidcall') {
+    msg.reply('Incoming video call from +1234567890');
+  }
+  // Fake Location
+  if (msg.body === '/fakelocation') {
+    msg.reply('Shared location: 37.7749° N, 122.4194° W');
+  }
+  // Spam
+  if (msg.body.startsWith('/spam')) {
+    const text = msg.body.split('/spam ')[1];
+    for (let i = 0; i < 10; i++) {
+      msg.reply(text);
+    }
+  }
+  // Repeat
+  if (msg.body.startsWith('/repeat')) {
+    const text = msg.body.split('/repeat ')[1].split(' ')[0];
+    const times = parseInt(msg.body.split('/repeat ')[1].split(' ')[1]);
+    for (let i = 0; i < times; i++) {
+      msg.reply(text);
+    }
+  }
+  // Big Text
+  if (msg.body.startsWith('/bigtext')) {
+    const text = msg.body.split('/bigtext
