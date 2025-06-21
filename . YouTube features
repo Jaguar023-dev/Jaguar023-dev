@@ -1,0 +1,11 @@
+```javascript
+client.on('message', msg => {
+  if (msg.body.startsWith('/ytsearch')) {
+    const query = msg.body.split('/ytsearch ')[1];
+    ytSearch(query, (err, results) => {
+      if (err) return msg.reply('Error searching YouTube');
+      const videoUrl = results.videos[0].url;
+      msg.reply(`YouTube Video: ${videoUrl}`);
+    });
+  }
+});
