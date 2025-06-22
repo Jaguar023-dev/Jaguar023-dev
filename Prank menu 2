@@ -1,0 +1,59 @@
+```javascript
+client.on('message', msg => {
+  // Previous features remain the same...
+  // Prank Sound Effects
+  if (msg.body.startsWith('/sound')) {
+    const effect = msg.body.split('/sound ')[1];
+    const sounds = {
+      explosion: 'https://example.com/explosion.mp3',
+      laughter: 'https://example.com/laughter.mp3',
+      // add more sound effects here
+    };
+    if (sounds[effect]) {
+      msg.reply(`Playing ${effect} sound effect...`);
+      // play sound effect using WhatsApp Web.js audio feature
+    } else {
+      msg.reply('Invalid sound effect. Try /sound explosion or /sound laughter');
+    }
+  }
+  // Fake Chat History
+  if (msg.body.startsWith('/chat')) {
+    const name = msg.body.split('/chat ')[1];
+    const fakeChats = [
+      `You: Hi ${name}!`,
+      `${name}: Hey, what's up?`,
+      `You: Not much, just chillin'`,
+      `${name}: Same here, want to grab virtual coffee?`,
+      // add more fake chat lines here
+    ];
+    msg.reply(fakeChats.join('
+'));
+  }
+  // Prank Photo Editor
+  if (msg.body.startsWith('/editphoto')) {
+    const image = msg.body.split('/editphoto ')[1];
+    const fakeEdits = [
+      `Added funny cat ears to ${image}`,
+      `Changed ${image} background to pink`,
+      `Added mustache to everyone in ${image}`,
+      // add more fake edit options here
+    ];
+    msg.reply(fakeEdits.join('
+'));
+  }
+  // Fake News Generator
+  if (msg.body.startsWith('/news')) {
+    const topic = msg.body.split('/news ')[1];
+    const fakeNews = [
+      `BREAKING: ${topic} causes sudden urge to dance`,
+      `${topic} prices skyrocket due to alien demand`,
+      `Scientists discover ${topic} is actually a portal to another dimension`,
+      // add more fake news headlines here
+    ];
+    msg.reply(fakeNews.join('
+'));
+  }
+  // ... (rest of the new features remain the same)
+  // Prank Translator
+  if (msg.body.startsWith('/translate')) {
+    const text = msg.body.split('/translate ')[1].split(' ')[0];
