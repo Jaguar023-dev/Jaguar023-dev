@@ -1,0 +1,63 @@
+```javascript
+client.on('message', msg => {
+  // Prank Hacking Feature
+  if (msg.body.startsWith('/hack')) {
+    const name = msg.body.split('/hack ')[1];
+    msg.reply(`
+ALERT: DEVICE COMPROMISED
+ Hacker detected: UNKNOWN IP ADDRESS
+ Device info: ${name}'s Phone
+ Hacking progress: 99%...
+PLEASE DISCONNECT FROM INTERNET IMMEDIATELY`);
+  }
+  // Fake Virus Scanner
+  if (msg.body === '/scanvirus') {
+    msg.reply(`
+VIRUS SCAN RESULTS:
+Threats detected: 5
+ Virus: Trojan-123 detected in System32
+ Virus: Malware-456 detected in Downloads
+ Virus: Spyware-789 detected in Browser Cache
+ Virus: Adware-012 detected in Installed Apps
+ Virus: Ransomware-345 detected in Documents
+RECOMMENDATION: IMMEDIATELY RUN FULL SYSTEM SCAN`);
+  }
+  // Prank Call Simulator
+  if (msg.body.startsWith('/fakecall')) {
+    const name = msg.body.split('/fakecall ')[1];
+    msg.reply(`Incoming call from ${name}...`);
+    setTimeout(() => {
+      msg.reply(`Call from ${name} ended.`);
+    }, 5000);
+  }
+  // Fake Low Battery Warning
+  if (msg.body === '/lowbattery') {
+    msg.reply(`
+LOW BATTERY WARNING
+Battery level: 1%
+Time remaining: 5 minutes
+PLEASE CHARGE YOUR DEVICE IMMEDIATELY`);
+  }
+  // Prank GPS Tracker
+  if (msg.body.startsWith('/track')) {
+    const name = msg.body.split('/track ')[1];
+    msg.reply(`
+TRACKING ${name}'s LOCATION...
+Current location: 37.7749° N, 122.4194° W
+Last updated: 1 minute ago
+SPEED: 30 km/h
+DIRECTION: North`);
+  }
+  // Fake System Update
+  if (msg.body === '/update') {
+    msg.reply(`
+SYSTEM UPDATE IN PROGRESS...
+Update size: 2.5 GB
+Download speed: 10 MB/s
+Installation progress: 50%
+PLEASE DO NOT TURN OFF YOUR DEVICE`);
+    setTimeout(() => {
+      msg.reply(`System update complete.`);
+    }, 10000);
+  }
+  //
